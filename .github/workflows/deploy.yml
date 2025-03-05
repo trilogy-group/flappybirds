@@ -24,6 +24,10 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Manual copy of assets for Linux environment
+      - name: Copy assets
+        run: cp -r public/assets dist/
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
