@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "postbuild": "xcopy /E /I /Y public\\assets dist\\assets",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
@@ -19,7 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.11.0",
-    "gh-pages": "^6.3.0",
+    "gh-pages": "^6.1.1",
     "typescript": "^5.3.3",
     "vite": "^5.0.10"
   }
