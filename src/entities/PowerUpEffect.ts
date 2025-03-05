@@ -65,60 +65,105 @@ export class PowerUpEffect implements Entity {
     // Save the current context state
     context.save();
     
-    // Set global alpha for fading
+    // Set the global alpha for transparency
     context.globalAlpha = this.opacity;
     
-    // Translate to the effect's position (center)
+    // Translate to the center position of the effect
     context.translate(this.position.x, this.position.y);
     
-    // Scale the context
+    // Scale the context based on the effect's scale
     context.scale(this.scale, this.scale);
     
-    // Draw the effect based on its type
-    const halfWidth = this.width / 2;
-    const halfHeight = this.height / 2;
+    // Draw the power-up icon
+    const iconSize = 30;
     
-    // Draw text label
-    context.fillStyle = 'white';
-    context.strokeStyle = 'black';
-    context.lineWidth = 3;
-    context.font = 'bold 20px Arial';
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-    
-    let text = '';
+    // Draw different icons based on the power-up type
     switch (this.type) {
       case 'shield':
-        text = 'SHIELD!';
-        context.fillStyle = '#3498db'; // Blue
+        // Draw shield icon (blue circle)
+        context.beginPath();
+        context.arc(0, 0, iconSize / 2, 0, Math.PI * 2);
+        context.fillStyle = 'rgba(30, 144, 255, 0.7)';
+        context.fill();
+        context.strokeStyle = 'white';
+        context.lineWidth = 2;
+        context.stroke();
+        
+        // Draw shield symbol
+        context.beginPath();
+        context.moveTo(0, -iconSize / 3);
+        context.lineTo(-iconSize / 3, 0);
+        context.lineTo(0, iconSize / 3);
+        context.lineTo(iconSize / 3, 0);
+        context.closePath();
+        context.fillStyle = 'white';
+        context.fill();
         break;
+        
       case 'slowmo':
-        text = 'SLOW-MO!';
-        context.fillStyle = '#9b59b6'; // Purple
+        // Draw slow motion icon (purple circle with clock)
+        context.beginPath();
+        context.arc(0, 0, iconSize / 2, 0, Math.PI * 2);
+        context.fillStyle = 'rgba(128, 0, 128, 0.7)';
+        context.fill();
+        context.strokeStyle = 'white';
+        context.lineWidth = 2;
+        context.stroke();
+        
+        // Draw clock hands
+        context.beginPath();
+        context.moveTo(0, 0);
+        context.lineTo(0, -iconSize / 3);
+        context.moveTo(0, 0);
+        context.lineTo(iconSize / 4, iconSize / 5);
+        context.strokeStyle = 'white';
+        context.lineWidth = 2;
+        context.stroke();
         break;
+        
       case 'score':
-        text = 'DOUBLE SCORE!';
-        context.fillStyle = '#f1c40f'; // Yellow
+        // Draw score boost icon (gold circle with star)
+        context.beginPath();
+        context.arc(0, 0, iconSize / 2, 0, Math.PI * 2);
+        context.fillStyle = 'rgba(255, 215, 0, 0.7)';
+        context.fill();
+        context.strokeStyle = 'white';
+        context.lineWidth = 2;
+        context.stroke();
+        
+        // Draw star
+        const spikes = 5;
+        const outerRadius = iconSize / 3;
+        const innerRadius = outerRadius / 2;
+        
+        context.beginPath();
+        for (let i = 0; i < spikes * 2; i++) {
+          const radius = i % 2 === 0 ? outerRadius : innerRadius;
+          const angle = (Math.PI * i) / spikes - Math.PI / 2;
+          const x = Math.cos(angle) * radius;
+          const y = Math.sin(angle) * radius;
+          
+          if (i === 0) {
+            context.moveTo(x, y);
+          } else {
+            context.lineTo(x, y);
+          }
+        }
+        context.closePath();
+        context.fillStyle = 'white';
+        context.fill();
         break;
     }
     
-    // Draw text with shadow
-    context.shadowColor = 'rgba(0, 0, 0, 0.5)';
-    context.shadowBlur = 5;
-    context.shadowOffsetX = 2;
-    context.shadowOffsetY = 2;
-    
-    context.strokeText(text, 0, 0);
-    context.fillText(text, 0, 0);
-    
-    // Restore the context state
+    // Restore the context to its original state
     context.restore();
   }
   
   /**
+   * Check if this entity collides with another entity
    * Power-up effects don't collide with anything
    */
-  collidesWith(other: Entity): boolean {
+  collidesWith(_other: Entity): boolean {
     return false;
   }
 } 

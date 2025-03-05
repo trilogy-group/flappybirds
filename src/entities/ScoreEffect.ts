@@ -86,9 +86,10 @@ export class ScoreEffect implements Entity {
   }
   
   /**
+   * Check if this entity collides with another entity
    * Score effects don't collide with anything
    */
-  collidesWith(other: Entity): boolean {
+  collidesWith(_other: Entity): boolean {
     return false;
   }
 } 

@@ -78,9 +78,10 @@ export class Background implements Entity {
   }
   
   /**
+   * Check if this entity collides with another entity
    * Background doesn't collide with anything
    */
-  collidesWith(other: Entity): boolean {
+  collidesWith(_other: Entity): boolean {
     return false;
   }
 }

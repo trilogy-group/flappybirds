@@ -70,17 +70,17 @@ export class InputHandler {
   }
   
   /**
-   * Handle mousedown events
+   * Handle mouse down event
    */
-  private handleMouseDown(event: MouseEvent): void {
+  private handleMouseDown(_event: MouseEvent): void {
     this.mouseDown = true;
     this.isFlapping = true;
   }
   
   /**
-   * Handle mouseup events
+   * Handle mouse up event
    */
-  private handleMouseUp(event: MouseEvent): void {
+  private handleMouseUp(_event: MouseEvent): void {
     this.mouseDown = false;
   }
   
