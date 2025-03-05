@@ -26,8 +26,8 @@ export class Pipe implements Entity {
     // Load pipe sprite based on type (green or red)
     this.sprite = new Image();
     this.sprite.src = this.isSpecial 
-      ? '/assets/sprites/pipe-red.png'
-      : '/assets/sprites/pipe-green.png';
+      ? 'assets/sprites/pipe-red.png'
+      : 'assets/sprites/pipe-green.png';
   }
   
   /**

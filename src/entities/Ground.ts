@@ -15,9 +15,9 @@ export class Ground implements Entity {
     this.width = width;
     this.height = height;
     
-    // Load ground sprite
+    // Load the ground sprite
     this.sprite = new Image();
-    this.sprite.src = '/assets/sprites/base.png';
+    this.sprite.src = 'assets/sprites/base.png';
   }
   
   /**

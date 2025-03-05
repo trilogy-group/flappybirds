@@ -9,11 +9,17 @@
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
-  "keywords": ["game", "flappy-birds", "typescript", "canvas"],
+  "keywords": [
+    "game",
+    "flappy-birds",
+    "typescript",
+    "canvas"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.11.0",
+    "gh-pages": "^6.3.0",
     "typescript": "^5.3.3",
     "vite": "^5.0.10"
   }

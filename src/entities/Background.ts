@@ -23,7 +23,7 @@ export class Background implements Entity {
     
     // Load background image
     this.backgroundImage = new Image();
-    this.backgroundImage.src = '/assets/sprites/background-day.png';
+    this.backgroundImage.src = 'assets/sprites/background-day.png';
     
     // Create background layers with different speeds for parallax effect
     this.layers = [
@@ -123,7 +123,7 @@ class BackgroundLayer {
     // Load ground image if this is a ground layer
     if (isGround) {
       this.groundImage = new Image();
-      this.groundImage.src = '/assets/sprites/base.png';
+      this.groundImage.src = 'assets/sprites/base.png';
     }
   }
   

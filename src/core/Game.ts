@@ -127,9 +127,17 @@ export class Game {
     
     // Load each sound
     for (const [name, file] of Object.entries(soundFiles)) {
-      const audio = new Audio(`/assets/audio/${file}`);
+      const audio = this.loadSound(file);
       this.sounds[name] = audio;
     }
+  }
+  
+  /**
+   * Load a sound file
+   */
+  private loadSound(file: string): HTMLAudioElement {
+    const audio = new Audio(`assets/audio/${file}`);
+    return audio;
   }
   
   /**

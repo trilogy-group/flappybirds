@@ -61,10 +61,10 @@ export class Bird implements Entity {
       `${this.color}bird-upflap.png`
     ];
     
-    // Load each sprite
+    // Load the sprite for each animation frame
     spriteFiles.forEach(file => {
       const img = new Image();
-      img.src = `/assets/sprites/${file}`;
+      img.src = `assets/sprites/${file}`;
       this.sprites.push(img);
     });
   }
