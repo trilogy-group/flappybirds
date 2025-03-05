@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "postbuild": "xcopy /E /I /Y public\\assets dist\\assets",
+    "postbuild": "node -e \"const fs=require('fs'); const path=require('path'); if(!fs.existsSync('dist/assets')){fs.mkdirSync('dist/assets', {recursive:true})}; const copyDir=(src,dest)=>{if(!fs.existsSync(dest)){fs.mkdirSync(dest, {recursive:true})}; const entries=fs.readdirSync(src,{withFileTypes:true}); for(const entry of entries){const srcPath=path.join(src,entry.name); const destPath=path.join(dest,entry.name); entry.isDirectory()?copyDir(srcPath,destPath):fs.copyFileSync(srcPath,destPath);};}; copyDir('public/assets', 'dist/assets');\"",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
