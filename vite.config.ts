@@ -5,11 +5,11 @@ import { resolve } from 'path';
 const htmlAssetPlugin = () => {
   return {
     name: 'html-asset-plugin',
-    transformIndexHtml(html) {
-      // Replace asset paths in HTML
+    transformIndexHtml(html, ctx) {
+      // Replace asset paths in HTML with the correct base path
       return html.replace(
-        /src="\.\/assets\//g,
-        'src="./assets/'
+        /src="assets\//g,
+        'src="/flappybirds/assets/'
       );
     }
   };
