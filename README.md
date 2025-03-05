@@ -6,6 +6,10 @@ A modern implementation of the classic Flappy Birds game built with TypeScript.
 
 This project recreates the popular Flappy Birds game with a focus on clean, type-safe code using TypeScript. The game features smooth animations, responsive controls, and a gradually increasing difficulty level.
 
+## Play the Game
+
+You can play the game online at: [https://trilogy-group.github.io/flappybirds/](https://trilogy-group.github.io/flappybirds/)
+
 ## Features
 
 - Responsive game loop with consistent physics
@@ -186,4 +190,32 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Original Flappy Bird game by Dong Nguyen
 - Assets from the original Flappy Bird game
-- Inspired by various Flappy Bird clones and tutorials 
+- Inspired by various Flappy Bird clones and tutorials
+
+## Deployment
+
+### GitHub Pages
+
+The game is configured for automatic deployment to GitHub Pages using GitHub Actions. When you push changes to the main branch, the game will be automatically built and deployed to GitHub Pages.
+
+To manually deploy the game to GitHub Pages:
+
+1. Build the project:
+```
+npm run build
+```
+
+2. Deploy to GitHub Pages:
+```
+npm run deploy
+```
+
+The game will be available at `https://trilogy-group.github.io/flappybirds/`.
+
+### Configuration
+
+The project is configured for GitHub Pages deployment with the following files:
+
+- `.github/workflows/deploy.yml`: GitHub Actions workflow for automatic deployment
+- `vite.config.ts`: Configured with the base path `/flappybirds/` for GitHub Pages
+- `package.json`: Includes a `deploy` script for manual deployment 
