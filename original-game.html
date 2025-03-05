@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flappy Birds TypeScript</title>
+  <!-- Start Single Page Apps for GitHub Pages -->
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // MIT License
+    // https://github.com/rafgraph/spa-github-pages
+    // This script checks to see if a redirect is present in the query string,
+    // converts it back into the correct url and adds it to the
+    // browser's history using window.history.replaceState(...),
+    // which won't cause the browser to attempt to load the new url.
+    // When the single page app is loaded further down in this file,
+    // the correct url will be waiting in the browser's history for
+    // the single page app to route accordingly.
+    (function(l) {
+      if (l.search[1] === '/' ) {
+        var decoded = l.search.slice(1).split('&').map(function(s) { 
+          return s.replace(/~and~/g, '&')
+        }).join('?');
+        window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    }(window.location))
+  </script>
+  <!-- End Single Page Apps for GitHub Pages -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #333;
+      overflow: hidden;
+    }
+    
+    canvas {
+      border: 1px solid #000;
+      max-width: 100%;
+      max-height: 90vh;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    #game-container {
+      position: relative;
+      width: auto;
+      height: auto;
+      margin: 0 auto;
+    }
+    
+    #start-screen, #game-over-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 20px;
+      background-color: #f1c40f;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #f39c12;
+    }
+    
+    h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+    
+    p {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    
+    .difficulty-stars {
+      display: flex;
+      margin: 10px 0;
+    }
+    
+    .star {
+      color: #555;
+      font-size: 30px;
+      margin: 0 3px;
+      text-shadow: 
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+      position: relative;
+    }
+    
+    .star.filled {
+      color: #FFD700;
+      text-shadow: 
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000,
+        0 0 5px #FFD700,
+        0 0 10px #FFD700;
+    }
+    
+    .difficulty-label {
+      font-size: 18px;
+      margin-bottom: 5px;
+      color: #f1c40f;
+      text-shadow: 1px 1px 2px #000;
+    }
+    
+    .character-selection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 15px 0;
+    }
+    
+    .character-label {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #f1c40f;
+      text-shadow: 1px 1px 2px #000;
+    }
+    
+    .character-options {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .character-option {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.2s ease;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .character-option:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .character-option.selected {
+      border-color: #f1c40f;
+      box-shadow: 0 0 10px #f1c40f;
+    }
+    
+    .character-option img {
+      width: 34px;
+      height: 24px;
+    }
+    
+    @media (max-height: 700px) {
+      canvas {
+        max-height: 95vh;
+      }
+      
+      h1 {
+        font-size: 36px;
+      }
+      
+      p {
+        font-size: 18px;
+      }
+      
+      button {
+        padding: 10px 20px;
+        font-size: 18px;
+      }
+      
+      .star {
+        font-size: 24px;
+      }
+      
+      .character-option {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .character-option img {
+        width: 28px;
+        height: 20px;
+      }
+    }
+  </style>
+  <script type="module" crossorigin src="./assets/index-DLFyq6_7.js"></script>
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="game-canvas"></canvas>
+    
+    <div id="start-screen">
+      <h1>Flappy Birds</h1>
+      <p>Click or press Spacebar to flap</p>
+      
+      <div class="character-selection">
+        <div class="character-label">Choose Your Bird:</div>
+        <div class="character-options">
+          <div class="character-option selected" data-color="yellow">
+            <img src="./assets/sprites/yellowbird-midflap.png" alt="Yellow Bird">
+          </div>
+          <div class="character-option" data-color="red">
+            <img src="./assets/sprites/redbird-midflap.png" alt="Red Bird">
+          </div>
+          <div class="character-option" data-color="blue">
+            <img src="./assets/sprites/bluebird-midflap.png" alt="Blue Bird">
+          </div>
+        </div>
+      </div>
+      
+      <button id="start-button">Start Game</button>
+    </div>
+    
+    <div id="game-over-screen" style="display: none;">
+      <h1>Game Over</h1>
+      <p>Score: <span id="final-score">0</span></p>
+      <p>High Score: <span id="high-score">0</span></p>
+      <div class="difficulty-label">Difficulty Reached:</div>
+      <div class="difficulty-stars" id="difficulty-stars">
+        <div class="star" id="star-1">★</div>
+        <div class="star" id="star-2">★</div>
+        <div class="star" id="star-3">★</div>
+        <div class="star" id="star-4">★</div>
+        <div class="star" id="star-5">★</div>
+      </div>
+      <button id="restart-button">Play Again</button>
+    </div>
+  </div>
+  
+  <!-- Change from module script to regular script that will be generated by Vite -->
+</body>
+</html> 
