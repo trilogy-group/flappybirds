@@ -24,6 +24,27 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Debug - List dist directory
+        run: find dist -type f | sort
+
+      - name: Ensure assets directory exists
+        run: |
+          mkdir -p dist/assets/sprites
+          mkdir -p dist/assets/audio
+
+      - name: Copy assets manually
+        run: |
+          cp -r public/assets/sprites/* dist/assets/sprites/
+          cp -r public/assets/audio/* dist/assets/audio/
+          ls -la dist/assets/sprites/
+          ls -la dist/assets/audio/
+
+      - name: Fix index.html
+        run: |
+          sed -i 's|src="src/main.ts"|src="./assets/index-*.js"|g' dist/index.html
+          sed -i 's|src="assets/sprites/|src="./assets/sprites/|g' dist/index.html
+          cat dist/index.html
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:

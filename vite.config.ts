@@ -6,15 +6,9 @@ const githubPagesPlugin = () => {
   return {
     name: 'github-pages-plugin',
     transformIndexHtml(html, ctx) {
-      // Replace asset paths in HTML with the correct base path
-      html = html.replace(
-        /src="assets\//g,
-        'src="/flappybirds/assets/'
-      );
-      
       // Replace the TypeScript script reference with the compiled JS reference
       html = html.replace(
-        /<script type="module" src="\.\/src\/main\.ts"><\/script>/g,
+        /<script type="module" src="src\/main\.ts"><\/script>/g,
         '' // This will be replaced by Vite's automatic script injection
       );
       
@@ -33,7 +27,7 @@ const githubPagesPlugin = () => {
 };
 
 export default defineConfig({
-  base: '/flappybirds/',
+  base: './',
   server: {
     open: true,
     port: 5173
